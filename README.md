@@ -5,8 +5,8 @@ This project is using:
 - [Create React App](https://create-react-app.dev/)
 - [Web3Modal](https://github.com/WalletConnect/web3modal)
 - [Ethers.js](https://docs.ethers.io/v5/)
-- Walletconnect
-- Coinbase
+- [Walletconnect](https://github.com/walletconnect/walletconnect-monorepo)
+- [Coinbase](https://github.com/coinbase/coinbase-wallet-sdk)
 
 If you will use this repository
 install using
