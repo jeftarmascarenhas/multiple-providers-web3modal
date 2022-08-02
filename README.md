@@ -1,46 +1,94 @@
-# Getting Started with Create React App
+# Multiple Providers with React and Web3modal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is using:
 
-## Available Scripts
+- Create React App
+- Web3Modal
+- Ethers.js
+- Walletconnect
+- Coinbase
 
-In the project directory, you can run:
+If you will use this repository
+install using
 
-### `yarn start`
+```shell
+yarn
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If you don't want to use this repository and want create from scratch following the video
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Create project with create react app
 
-### `yarn test`
+```shell
+yarn create react-app multple-wallet-providers --template typescript
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+install ethers and web3modal
 
-### `yarn build`
+```shell
+yarn add ethers web3modal
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+install wallet Providers
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```shell
+yarn add @walletconnect/web3-provider @coinbase/wallet-sd
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Yes the create-react-app version >=5 you may run into issues building. This is because NodeJS polyfills are not included in the latest version of create-react-app.
 
-### `yarn eject`
+```shell
+yarn add --dev react-app-rewired process crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url buffer
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Create config-overrides.js in the root of your project folder with the content:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+const webpack = require("webpack");
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+module.exports = function override(config) {
+  const fallback = config.resolve.fallback || {};
+  Object.assign(fallback, {
+    crypto: require.resolve("crypto-browserify"),
+    stream: require.resolve("stream-browserify"),
+    assert: require.resolve("assert"),
+    http: require.resolve("stream-http"),
+    https: require.resolve("https-browserify"),
+    os: require.resolve("os-browserify"),
+    url: require.resolve("url"),
+  });
+  config.resolve.fallback = fallback;
+  config.plugins = (config.plugins || []).concat([
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+      Buffer: ["buffer", "Buffer"],
+    }),
+  ]);
+  config.ignoreWarnings = [/Failed to parse source map/];
+  return config;
+};
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Within package.json change the scripts field for start, build and test. Instead of react-scripts replace it with react-app-rewired
 
-## Learn More
+before:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```shell
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+},
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+after:
+
+```shell
+"scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+},
+```

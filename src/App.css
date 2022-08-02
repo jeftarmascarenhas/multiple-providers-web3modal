@@ -28,11 +28,29 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul > li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  border: 0;
+  padding: 10px 15px;
+  background-color: rgba(179, 58, 163, 0.7);
+  border-radius: 8px;
+  color: #f0f0f0;
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 120px;
+  font-size: 18px;
+  transition: all linear 0.3s;
+}
+
+button:hover {
+  background-color: rgba(179, 58, 163, 0.9);
 }
