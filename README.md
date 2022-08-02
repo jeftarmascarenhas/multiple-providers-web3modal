@@ -2,9 +2,9 @@
 
 This project is using:
 
-- Create React App
-- Web3Modal
-- Ethers.js
+- [Create React App](https://create-react-app.dev/)
+- [Web3Modal](https://github.com/WalletConnect/web3modal)
+- [Ethers.js](https://docs.ethers.io/v5/)
 - Walletconnect
 - Coinbase
 
